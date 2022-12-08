@@ -1,20 +1,36 @@
-<h1>投稿一覧</h1>
+<div class="container">
+  <header>
+    <h1>一瞬で忘れるつぶやき投稿アプリ</h1>
+    <h1>DACHO</h1>
+  </header>
 
-<p><%= notice %></p>
+  <div class="main">
+    <h1>投稿一覧</h1>
+    <p class="content"><%= notice %></p>
 
-<table>
-  <tr>
-    <th>Content</th>
-  </tr>
+    <table class="content">
+      <tr>
+        <th>投稿内容</th>
+      </tr>
 
-<% @posts.each do |post| %>
-  <tr>
-    <td><%= post.content %></td>
-    <td><%= link_to '詳細を確認する', post_path(post.id) %></td>
-    <td><%= link_to "投稿を編集する", edit_post_path(post.id), data: { confirm: '本当に編集していいですか？' } %>
-    <td><%= link_to '投稿を削除する', post_path(post.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %>
-  </tr>
-<% end %>
-</table>
+      <% @posts.each do |post| %>
+        <tr>
+          <td><%= post.content %></td>
+          <td><%= link_to '内容を確認する', post_path(post.id) %></td>
+          <td><%= link_to "編集する", edit_post_path(post.id), data: { confirm: '本当に編集していいですか？' } %>
+          <td><%= link_to '削除する', post_path(post.id), method: :delete ,data: { confirm: '本当に削除していいですか？' } %>
+        </tr>
+      <% end %>
+    </table>
 
-<%= link_to '新しく投稿する', new_post_path %>
+    <div class="new_button">
+      <%= link_to '新しく投稿する', new_post_path, class: "new_link" %>
+    </div>
+
+  </div>
+
+        <footer class="footer">
+          <p>一瞬で忘れる機能は実装されておりません</p>
+        </footer>
+
+</div>
