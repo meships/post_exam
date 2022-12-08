@@ -1,20 +1,26 @@
 class PostsController < ApplicationController
-  before_action :set_blog, only: [:show, :edit]
-  def index
-    @posts = Post.all
-  end
-
-  def new
-    @post = Post.new
-  end
-
-  def create
-    @post = Post.new(post_params)
-    if @post.save
-      redirect_to posts_path, notice: "コメントを投稿しました"
-    else
-      render :new
+    before_action :set_blog, only: [:show, :edit, :destroy]
+    def index
+      @posts = Post.all
     end
+
+    def new
+      @post = Post.new
+    end
+
+    def create
+      @post = Post.new(post_params)
+      if params[:back]
+        render :new
+      else
+        if @post.save
+          redirect_to posts_path, notice: "投稿を作成しました！"
+        else
+          render :new
+        end
+      end
+  end
+
 
     def show
     end
@@ -22,7 +28,15 @@ class PostsController < ApplicationController
     def edit
     end
 
+    def destroy
+      @post.destroy
+      redirect_to posts_path, notice:"投稿を削除しました！"
+    end
 
+    def confirm
+      @post = Post.new(post_params)
+      render :new if @post.invalid?
+    end
 
     private
 
@@ -30,9 +44,8 @@ class PostsController < ApplicationController
       params.require(:post).permit(:content)
     end
 
-    defset_post
+    def set_post
       @post = Post.find(params[:id])
     end
+  
 end
-
-
